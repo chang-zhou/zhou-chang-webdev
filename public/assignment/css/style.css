@@ -1,7 +1,50 @@
-input.form-control {
+input.form-control, textarea.form-control {
     margin-bottom: 5px;
 }
 
 body {
     padding-top: 36px;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.container-fluid a {
+    text-decoration: none;
+}
+
+.container-fluid ul {
+    list-style-type: none;
+}
+
+.navbar-default {
+    background-color: dodgerblue;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-link {
+    color: white;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.wd-widget {
+    margin-bottom: 10px;
+}
+
+.wd-widget > img {
+    width: 100%;
+}
+
+.wd-widget > .wd-widget-toolbar {
+    position: absolute;
+    right: 15px;
+    background: white;
+    opacity: 0.9;
+    padding: 5px;
+    border-bottom-left-radius: 10px;
 }
