@@ -4,7 +4,7 @@
         .controller('widgetEditController', widgetEditController);
 
     function widgetEditController($routeParams,
-                                  $sce,
+                                  $location,
                                   widgetService) {
         var model = this;
 
@@ -12,9 +12,9 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.widgetId = $routeParams['widgetId'];
-        model.trust = trust;
-        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.widgetUrl = widgetUrl;
+        model.deleteWidget = deleteWidget;
+        model.uploadImage = uploadImage;
 
         function init() {
             model.widget = widgetService.findWidgetById(model.widgetId);
@@ -26,16 +26,17 @@
             return url;
         }
 
-        function getYouTubeEmbedUrl(linkUrl) {
-            var embedUrl = "https://www.youtube.com/embed/";
-            var linkUrlParts = linkUrl.split('/');
-            embedUrl += linkUrlParts[linkUrlParts.length - 1];
-            return $sce.trustAsResourceUrl(embedUrl);
+        function deleteWidget(widgetId) {
+            widgetService.deleteWidget(widgetId);
+            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
         }
-        
-        function trust(html) {
-            // scrubbing the html
-            return $sce.trustAsHtml(html);
+
+        function uploadImage(widgetId, imageUrl) {
+            var image = widgetService.findWidgetById(model.widgetId);
+            image.url = imageUrl;
+            widgetService.updateWidget(widgetId, image);
+            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
         }
+
     }
 })();

@@ -1,5 +1,4 @@
 
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -29,24 +28,21 @@
            value="US Senate Reaches Compromise"
            id="text"/>
 
+    <label for="url">URL</label>
+    <input class="form-control"
+           ng-model="model.widget.url"
+           id="url"/>
+
     <label for="file">Upload</label>
     <input id="file" multiple type="file" class="form-control"/>
 
-    <a href=""
+    <a ng-click="model.uploadImage(model.widgetId, model.widget.url)"
        class="btn btn-block btn-success">Upload</a>
 
-    <a href="widget-list.html"
+    <a ng-click="model.deleteWidget(model.widgetId)"
        class="btn btn-block btn-danger">Delete</a>
 
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <div class="row navbar-text navbar-right">
-            <a href="profile.html" class="navbar-link">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<div ng-include="'views/common/footer.view.client.html'"></div>
 

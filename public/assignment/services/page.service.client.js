@@ -45,9 +45,9 @@
         }
 
         function updatePage(pageId, page) {
-            deletePage(pageId);
-            page._id = pageId;
-            pages.push(page);
+            var oldPage = findPageById(pageId);
+            var index = pages.indexOf(oldPage);
+            pages[index] = page;
         }
     }
 })();

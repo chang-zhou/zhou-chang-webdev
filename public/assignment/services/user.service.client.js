@@ -58,9 +58,9 @@
         }
 
         function updateUser(userId, user) {
-            deleteUser(userId);
-            user._id = userId;
-            users.push(user);
+            var oldUser = findUserById(userId);
+            var index = users.indexOf(oldUser);
+            users[index] = user;
         }
 
         function deleteUser(userId) {

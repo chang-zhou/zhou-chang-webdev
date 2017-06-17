@@ -1,5 +1,4 @@
 
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -25,8 +24,7 @@
 
     <label for="text">Text</label>
     <input class="form-control"
-           placeholder="facebook"
-           value="US Senate Reaches Compromise"
+           ng-model="model.widget.text"
            id="text"/>
 
     <label for="size">Size</label>
@@ -39,17 +37,10 @@
         <option>6 (Smallest)</option>
     </select>
 
-    <a href="widget-list.html" class="btn btn-block btn-danger">Delete</a>
+    <a ng-click="model.deleteWidget(model.widgetId)"
+       class="btn btn-block btn-danger">Delete</a>
 
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <div class="row navbar-text navbar-right">
-            <a href="profile.html" class="navbar-link">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<div ng-include="'views/common/footer.view.client.html'"></div>
 

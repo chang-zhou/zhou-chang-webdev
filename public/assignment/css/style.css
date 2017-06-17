@@ -18,6 +18,7 @@ body {
 
 .navbar-default {
     background-color: dodgerblue;
+    background-image: none;
 }
 
 .navbar-default .navbar-brand {

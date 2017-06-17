@@ -52,9 +52,9 @@
         }
 
         function updateWebsite(websiteId, website){
-            deleteWebsite(websiteId);
-            website._id = websiteId;
-            websites.push(website);
+            var oldWebsite = findWebsiteById(websiteId);
+            var index = websites.indexOf(oldWebsite);
+            websites[index] = website;
         }
     }
 })();

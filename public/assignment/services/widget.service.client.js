@@ -45,9 +45,9 @@
         }
 
         function updateWidget(widgetId, widget) {
-            deleteWidget(widgetId);
-            widget._id = widgetId;
-            widgets.push(widget);
+            var oldWidget = findWidgetById(widgetId);
+            var index = widgets.indexOf(oldWidget);
+            widgets[index] = widget;
         }
 
         function deleteWidget(widgetId){
