@@ -13,12 +13,24 @@
         model.createPage = createPage;
 
         function init() {
-            model.pages = pageService.findPageByWebsiteId(model.websiteId);
+            pageService
+                .findPageByWebsiteId(model.websiteId)
+                .then(renderPages);
         }
         init();
 
+        function renderPages(pages){
+            model.pages = pages;
+        }
+
+        function renderPage(page) {
+            model.page = page;
+        }
+
         function createPage(page) {
-            pageService.createPage(model.websiteId, page);
+            pageService
+                .createPage(model.websiteId, page)
+                .then(renderPage);
             $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
         }
     }

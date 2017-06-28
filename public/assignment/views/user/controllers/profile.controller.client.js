@@ -9,12 +9,22 @@
 
         model.userId = $routeParams['userId'];
 
-        model.user = userService.findUserById(model.userId);
+        userService
+            .findUserById(model.userId)
+            .then(renderUser, userError);
 
         model.websites = websites;
 
         function websites() {
             $location.url('/user/' + model.userId + "/website");
+        }
+
+        function renderUser (user) {
+            model.user = user;
+        }
+
+        function userError() {
+            model.error = "User not found";
         }
     }
 })();

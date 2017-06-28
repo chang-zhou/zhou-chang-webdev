@@ -13,10 +13,22 @@
         model.deleteWebsite = deleteWebsite;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
-            model.website = websiteService.findWebsiteById(model.websiteId);
+            model.websites = websiteService
+                .findAllWebsitesForUser(model.userId)
+                .then(renderWebsites);
+            model.website = websiteService
+                .findWebsiteById(model.websiteId)
+                .then(renderWebsite);
         }
         init();
+
+        function renderWebsites(websites) {
+            model.websites = websites;
+        }
+
+        function renderWebsite(website) {
+            model.website = website;
+        }
 
         function deleteWebsite(websiteId) {
             websiteService.deleteWebsite(websiteId);

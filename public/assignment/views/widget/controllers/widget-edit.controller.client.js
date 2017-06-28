@@ -17,9 +17,15 @@
         model.uploadImage = uploadImage;
 
         function init() {
-            model.widget = widgetService.findWidgetById(model.widgetId);
+            widgetService
+                .findWidgetById(model.widgetId)
+                .then(renderWidget);
         }
         init();
+
+        function renderWidget(widget) {
+            model.widget = widget;
+        }
 
         function widgetUrl(widget) {
             var url = 'views/widget/editors/widget-'+widget.widgetType.toLowerCase()+'-edit.view.client.html';
@@ -32,9 +38,9 @@
         }
 
         function uploadImage(widgetId, imageUrl) {
-            var image = widgetService.findWidgetById(model.widgetId);
-            image.url = imageUrl;
-            widgetService.updateWidget(widgetId, image);
+            // var image = widgetService.findWidgetById(model.widgetId);
+            // image.url = imageUrl;
+            // widgetService.updateWidget(widgetId, image);
             $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
         }
 

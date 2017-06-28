@@ -15,10 +15,22 @@
         model.deletePage = deletePage;
 
         function init() {
-            model.pages = pageService.findPageByWebsiteId(model.websiteId);
-            model.page = pageService.findPageById(model.pageId);
+            pageService
+                .findPageByWebsiteId(model.websiteId)
+                .then(renderPages);
+            pageService
+                .findPageById(model.pageId)
+                .then(renderPage);
         }
         init();
+
+        function renderPages(pages){
+            model.pages = pages;
+        }
+
+        function renderPage(page) {
+            model.page = page;
+        }
 
         function deletePage(pageId) {
             pageService.deletePage(pageId);

@@ -12,13 +12,24 @@
         model.createWebsite = createWebsite;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
+            model.websites = websiteService
+                .findAllWebsitesForUser(model.userId)
+                .then(renderWebsites);
         }
         init();
 
+        function renderWebsites(websites) {
+            model.websites = websites;
+        }
+
+        function renderWebsite(website) {
+            model.website = website;
+        }
+
         function createWebsite(website) {
-            website.developerId = model.userId;
-            websiteService.createWebsite(website);
+            websiteService
+                .createWebsite(model.userId, website)
+                .then(renderWebsite);
             $location.url('/user/'+model.userId+'/website');
         }
     }
