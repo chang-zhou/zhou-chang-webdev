@@ -36,7 +36,7 @@
 
         function updateWidget(widgetId, widget) {
             var url = "/api/assignment/widget/"+widgetId;
-            return $http.put(url)
+            return $http.put(url, widget)
                 .then(function (response) {
                     return response.data;
                 });

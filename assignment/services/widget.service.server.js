@@ -17,6 +17,7 @@ app.get("/api/assignment/page/:pageId/widget", findAllWidgetsForPage);
 app.get("/api/assignment/widget/:widgetId", findWidgetById);
 app.delete("/api/assignment/widget/:widgetId", deleteWidget);
 app.put("/api/assignment/widget/:widgetId", updateWidget);
+app.put("/page/:pageId/widget", updateWidgetOrder);
 
 function findAllWidgetsForPage(req, res) {
     var results = [];
@@ -34,7 +35,6 @@ function createWidget(req, res) {
     widget.pageId = req.params.pageId;
     widgets.push(widget);
     res.json(widget);
-
 }
 
 function findWidgetById(req, res) {
@@ -45,7 +45,7 @@ function findWidgetById(req, res) {
             return;
         }
     }
-    res.send(404);
+    res.sendStatus(404);
 }
 
 function deleteWidget(req, res) {
@@ -53,11 +53,11 @@ function deleteWidget(req, res) {
     for(var u in widgets) {
         if(widgets[u]._id === widgetId) {
             widgets.splice(u, 1);
-            res.send(200);
+            res.sendStatus(200);
             return;
         }
     }
-    res.send(404);
+    res.sendStatus(404);
 }
 
 function updateWidget(req, res) {
@@ -65,24 +65,34 @@ function updateWidget(req, res) {
     for(var u in widgets) {
         if(widgets[u]._id === req.params.widgetId) {
             widgets[u] = widget;
-            res.send(200);
+            res.sendStatus(200);
             return;
         }
     }
-    res.send(404);
+    res.sendStatus(404);
+}
+
+function updateWidgetOrder(req, res) {
+    var initial = req.query['initial'];
+    var final = req.query['final'];
+    var widget = widgets[initial];
+    widgets.splice(initial, 1);
+    widgets.splice(final, 0, widget);
+    res.sendStatus(200);
 }
 
 
 var multer = require('multer'); // npm install multer --save
 var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
-app.post ("/api/upload", upload.single('myFile'), uploadImage);
+app.post ("/api/assignment/upload", upload.single('myFile'), uploadImage);
 
 function uploadImage(req, res) {
-
+    var userId = req.body.userId;
+    var websiteId = req.body.websiteId;
+    var pageId = req.body.pageId;
     var widgetId      = req.body.widgetId;
     var myFile        = req.file;
-
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;     // new file name in upload folder
     var path          = myFile.path;         // full path of uploaded file
@@ -90,12 +100,20 @@ function uploadImage(req, res) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    widget = {};
-    widget.url = '/assignment/graduate/uploads/'+filename;
+    widget = getWidgetById(widgetId);
+    widget.url = '/assignment/uploads/'+filename;
 
-    var callbackUrl   = "/assignment/graduate/index.html#!/widget/345";
-
+    var callbackUrl   = "/assignment/index.html#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
     res.redirect(callbackUrl);
+}
+
+function getWidgetById(widgetId) {
+    for(var u in widgets) {
+        if(widgets[u]._id === widgetId) {
+            return widgets[u];
+        }
+    }
+    return {};
 }
 
 

@@ -33,16 +33,20 @@
         }
 
         function deleteWidget(widgetId) {
-            widgetService.deleteWidget(widgetId);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+            widgetService.deleteWidget(widgetId)
+                .then(
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
+                );
+
         }
 
         function uploadImage(widgetId, imageUrl) {
-            // var image = widgetService.findWidgetById(model.widgetId);
-            // image.url = imageUrl;
-            // widgetService.updateWidget(widgetId, image);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget');
+            var image = widgetService.findWidgetById(model.widgetId);
+            image.url = imageUrl;
+            widgetService.updateWidget(widgetId, image)
+                .then(
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
+                );
         }
-
     }
 })();
