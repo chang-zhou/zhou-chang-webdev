@@ -10,7 +10,7 @@
 
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
-        model.pageId = $routeParams.pageId;
+        model.pageId = $routeParams['pageId'];
 
         model.deletePage = deletePage;
 
@@ -33,8 +33,11 @@
         }
 
         function deletePage(pageId) {
-            pageService.deletePage(pageId);
-            $location.url('/user/'+model.websiteId+'/page');
+            pageService
+                .deletePage(model.websiteId, pageId)
+                .then(function (status) {
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page')
+                });
         }
     }
 })();

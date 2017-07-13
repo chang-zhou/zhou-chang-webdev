@@ -29,8 +29,10 @@
         function createWebsite(website) {
             websiteService
                 .createWebsite(model.userId, website)
-                .then(renderWebsite);
-            $location.url('/user/'+model.userId+'/website');
+                .then(renderWebsite)
+                .then(function () {
+                    $location.url('/user/'+model.userId+'/website');
+                });
         }
     }
 })();

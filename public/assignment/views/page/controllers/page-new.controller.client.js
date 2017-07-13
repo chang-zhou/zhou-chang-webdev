@@ -30,8 +30,10 @@
         function createPage(page) {
             pageService
                 .createPage(model.websiteId, page)
-                .then(renderPage);
-            $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
+                .then(renderPage)
+                .then(function () {
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
+                });
         }
     }
 })();
