@@ -12,12 +12,13 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.widgetId = $routeParams['widgetId'];
+
         model.widgetUrl = widgetUrl;
         model.deleteWidget = deleteWidget;
         model.uploadImage = uploadImage;
 
         function init() {
-            widgetService
+            model.widget = widgetService
                 .findWidgetById(model.widgetId)
                 .then(renderWidget);
         }
@@ -34,9 +35,9 @@
 
         function deleteWidget(widgetId) {
             widgetService.deleteWidget(widgetId)
-                .then(
-                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
-                );
+                .then(function (status) {
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
+                });
 
         }
 
@@ -44,9 +45,9 @@
             var image = widgetService.findWidgetById(model.widgetId);
             image.url = imageUrl;
             widgetService.updateWidget(widgetId, image)
-                .then(
-                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
-                );
+                .then(function (status) {
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
+                });
         }
     }
 })();

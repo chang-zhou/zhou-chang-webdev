@@ -16,9 +16,9 @@
 
 <div class="container-fluid">
     <ul class="list-group">
-        <li ng-repeat="widget in model.widgets" class="list-group-item">
-            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
-                {{widget.name}}
+        <li ng-repeat="widgetType in model.widgetTypes" class="list-group-item">
+            <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new/{{widgetType}}">
+                {{widgetType}}
             </a>
         </li>
     </ul>

@@ -10,8 +10,8 @@
         this.updateWidget = updateWidget;
         this.deleteWidget = deleteWidget;
 
-        function createWidget(pageId, widget) {
-            var url = "/api/assignment/page/"+pageId+"/widget";
+        function createWidget(pageId, widget, widgetType) {
+            var url = "/api/assignment/page/"+pageId+"/widget/"+widgetType;
             return $http.post(url, widget)
                 .then(function (response) {
                     return response.data;
