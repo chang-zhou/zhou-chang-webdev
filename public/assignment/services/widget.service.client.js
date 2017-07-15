@@ -5,7 +5,7 @@
 
     function widgetService($http) {
         this.createWidget = createWidget;
-        this.findWidgetByPageId = findWidgetByPageId;
+        this.findAllWidgetsForPage = findAllWidgetsForPage;
         this.findWidgetById = findWidgetById;
         this.updateWidget = updateWidget;
         this.deleteWidget = deleteWidget;
@@ -18,7 +18,7 @@
                 });
         }
 
-        function findWidgetByPageId(pageId) {
+        function findAllWidgetsForPage(pageId) {
             var url = "/api/assignment/page/"+pageId+"/widget";
             return $http.get(url)
                 .then(function (response) {

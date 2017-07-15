@@ -19,7 +19,7 @@
 </nav>
 
 <div class="container-fluid" wd-draggable>
-    <div ng-repeat="widget in model.widgets" class="wd-widget">
+    <div ng-repeat="widget in model.widgets" class="wd-widget" id="{{widget._id}}">
         <div class="wd-widget-toolbar">
             <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                 <span class="glyphicon glyphicon-cog"></span>

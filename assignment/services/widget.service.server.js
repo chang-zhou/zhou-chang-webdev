@@ -42,7 +42,7 @@ function deleteWidget(req, res) {
     widgetModel
         .deleteWidget(pageId, widgetId)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
 
@@ -52,7 +52,7 @@ function updateWidget(req, res) {
     widgetModel
         .updateWidget(widgetId, widget)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
 
@@ -63,7 +63,7 @@ function updateWidgetOrder(req, res) {
     widgetModel
         .reorderWidget(pageId, start, end)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
 

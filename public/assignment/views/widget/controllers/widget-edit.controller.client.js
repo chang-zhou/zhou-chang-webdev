@@ -29,7 +29,7 @@
         }
 
         function widgetUrl(widget) {
-            var url = 'views/widget/editors/widget-'+widget.widgetType.toLowerCase()+'-edit.view.client.html';
+            var url = 'views/widget/editors/widget-'+widget.type.toLowerCase()+'-edit.view.client.html';
             return url;
         }
 

@@ -13,7 +13,7 @@ function deleteUser(req, res) {
     userModel
         .deleteUser(userId)
         .then(function (status) {
-            res.send(status);
+            res.sendStatus(200);
         });
 }
 
@@ -22,7 +22,7 @@ function updateUser(req, res) {
     userModel
         .updateUser(req.params.userId, user)
         .then(function (status) {
-            res.send(status);
+            res.sendStatus(200);
         });
 }
 

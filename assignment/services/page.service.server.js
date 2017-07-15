@@ -40,7 +40,7 @@ function deletePage(req, res) {
     pageModel
         .deletePage(websiteId, pageId)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
 
@@ -50,6 +50,6 @@ function updatePage(req, res) {
     pageModel
         .updatePage(pageId, page)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }

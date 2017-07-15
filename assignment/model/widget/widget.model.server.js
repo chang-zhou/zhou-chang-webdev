@@ -25,10 +25,13 @@ function createWidget(pageId, widget, widgetType) {
 }
 
 function findAllWidgetsForPage(pageId) {
-    return widgetModel
-        .find({_page: pageId})
-        .populate('_pageId')
-        .exec();
+    return pageModel
+        .findById(pageId)
+        .populate('widgets')
+        .exec()
+        .then(function (page) {
+            return page.widgets;
+        });
 }
 
 function deleteWidget(pageId, widgetId) {
@@ -50,6 +53,12 @@ function updateWidget(widgetId, widget) {
 
 function reorderWidget(pageId, start, end) {
     return pageModel
-        .reorderWidget(pageId, start, end);
-
+        .findById(pageId)
+        .then(function (page) {
+            var widgets = page.widgets;
+            var widget = widgets[start];
+            widgets.splice(start, 1);
+            widgets.splice(end, 0, widget);
+            return page.save();
+        });
 }

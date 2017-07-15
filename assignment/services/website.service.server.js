@@ -40,7 +40,7 @@ function deleteWebsite(req, res) {
     websiteModel
         .deleteWebsiteFromUser(userId, websiteId)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
 
@@ -50,6 +50,6 @@ function updateWebsite(req, res) {
     websiteModel
         .updateWebsite(websiteId, website)
         .then(function (status) {
-            res.sendStatus(status);
+            res.sendStatus(200);
         });
 }
