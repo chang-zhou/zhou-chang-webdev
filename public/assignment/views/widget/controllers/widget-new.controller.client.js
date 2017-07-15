@@ -16,7 +16,7 @@
 
         model.widgetUrl = widgetUrl;
         model.deleteWidget = deleteWidget;
-        model.uploadImage = uploadImage;
+        model.uploadURL = uploadURL;
         model.createWidget = createWidget;
 
         function widgetUrl(widgetType) {
@@ -35,7 +35,7 @@
             $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
         }
 
-        function uploadImage(widgetId, imageUrl) {
+        function uploadURL(widgetId, imageUrl) {
             var image = widgetService.findWidgetById(model.widgetId);
             image.url = imageUrl;
             widgetService.createWidget(model.pageId, image, model.widgetType)
