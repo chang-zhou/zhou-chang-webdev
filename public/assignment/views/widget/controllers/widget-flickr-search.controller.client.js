@@ -41,14 +41,27 @@
         function selectPhoto(photo) {
             var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
-            var widget = model.widget;
-            widget.url = url;
-            widgetService
-                .updateWidget(model.widgetId, widget)
-                .then(
-                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
-                );
 
+            if(model.widgetId === 'default'){
+                var newWidget = {
+                    url: url,
+                    type: 'IMAGE'
+                };
+                widgetService
+                    .createWidget(model.pageId, newWidget, newWidget.type)
+                    .then(
+                        $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
+                    )
+            }
+            else{
+                var widget = model.widget;
+                widget.url = url;
+                widgetService
+                    .updateWidget(model.widgetId, widget)
+                    .then(
+                        $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page/'+model.pageId+'/widget')
+                    );
+            }
         }
     }
 })();

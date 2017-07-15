@@ -48,7 +48,7 @@ function findWidgetById(widgetId) {
 }
 
 function updateWidget(widgetId, widget) {
-    widgetModel.update({_id: widgetId}, {$set: widget});
+    return widgetModel.update({_id: widgetId}, {$set: widget});
 }
 
 function reorderWidget(pageId, start, end) {

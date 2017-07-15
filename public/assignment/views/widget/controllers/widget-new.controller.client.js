@@ -12,6 +12,7 @@
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
         model.widgetType = $routeParams['widgetType'];
+        model.widgetId = 'default';
 
         model.widgetUrl = widgetUrl;
         model.deleteWidget = deleteWidget;
@@ -19,7 +20,7 @@
         model.createWidget = createWidget;
 
         function widgetUrl(widgetType) {
-            var url = 'views/widget/creators/widget-'+widgetType.toLowerCase()+'-new.view.client.html';
+            var url = 'views/widget/editors/widget-'+widgetType.toLowerCase()+'-edit.view.client.html';
             return url;
         }
 
@@ -31,17 +32,13 @@
         }
 
         function deleteWidget(widgetId) {
-            widgetService.deleteWidget(widgetId)
-                .then(function (status) {
-                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
-                });
-
+            $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
         }
 
         function uploadImage(widgetId, imageUrl) {
             var image = widgetService.findWidgetById(model.widgetId);
             image.url = imageUrl;
-            widgetService.updateWidget(widgetId, image)
+            widgetService.createWidget(model.pageId, image, model.widgetType)
                 .then(function (status) {
                     $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
                 });

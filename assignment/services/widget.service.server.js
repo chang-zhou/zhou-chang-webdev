@@ -4,7 +4,7 @@ var widgetModel = require('../model/widget/widget.model.server');
 app.post("/api/assignment/page/:pageId/widget/:widgetType", createWidget);
 app.get("/api/assignment/page/:pageId/widget", findAllWidgetsForPage);
 app.get("/api/assignment/widget/:widgetId", findWidgetById);
-app.delete("/api/assignment/widget/:widgetId", deleteWidget);
+app.delete("/api/assignment/page/:pageId/widget/:widgetId", deleteWidget);
 app.put("/api/assignment/widget/:widgetId", updateWidget);
 app.put("/page/:pageId/widget", updateWidgetOrder);
 
@@ -85,20 +85,31 @@ function uploadImage(req, res) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    widget = getWidgetById(widgetId);
-    widget.url = '/assignment/uploads/'+filename;
-
-    var callbackUrl   = "/assignment/index.html#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
-    res.redirect(callbackUrl);
-}
-
-function getWidgetById(widgetId) {
-    for(var u in widgets) {
-        if(widgets[u]._id === widgetId) {
-            return widgets[u];
-        }
+    var url = '/assignment/uploads/'+filename;
+    var callbackUrl   = "/assignment/index.html#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
+    if(widgetId === 'default'){
+        var newWidget = {
+            url: url,
+            type: 'IMAGE'
+        };
+        widgetModel
+            .createWidget(pageId, newWidget, newWidget.type)
+            .then(function (widget) {
+                res.redirect(callbackUrl);
+            });
     }
-    return {};
+    else{
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(function (widget) {
+                widget.url = url;
+                widgetModel.updateWidget(widget._id, widget)
+                    .then(function (status) {
+                        res.redirect(callbackUrl);
+                    });
+            })
+    }
 }
+
 
 

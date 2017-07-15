@@ -15,7 +15,8 @@
 
         model.widgetUrl = widgetUrl;
         model.deleteWidget = deleteWidget;
-        model.uploadImage = uploadImage;
+        model.uploadURL = uploadURL;
+        model.createWidget = createWidget;
 
         function init() {
             model.widget = widgetService
@@ -33,20 +34,24 @@
             return url;
         }
 
+        function createWidget(widget) {
+            $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
+        }
+
         function deleteWidget(widgetId) {
-            widgetService.deleteWidget(widgetId)
+            widgetService.deleteWidget(model.pageId, widgetId)
                 .then(function (status) {
-                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
                 });
 
         }
 
-        function uploadImage(widgetId, imageUrl) {
+        function uploadURL(widgetId, imageUrl) {
             var image = widgetService.findWidgetById(model.widgetId);
             image.url = imageUrl;
             widgetService.updateWidget(widgetId, image)
                 .then(function (status) {
-                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
                 });
         }
     }
