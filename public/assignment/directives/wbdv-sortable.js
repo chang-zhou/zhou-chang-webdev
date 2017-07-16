@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('WebAppMaker',['ngRoute'])
+        .module('WebAppMaker')
         .directive('wdDraggable', wdDraggable);
     
     function wdDraggable($routeParams,
