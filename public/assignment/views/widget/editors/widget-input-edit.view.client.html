@@ -1,0 +1,37 @@
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                Text Input Editor
+            </a>
+            <p class="navbar-text pull-right">
+                <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <label for="text">Text</label>
+    <input id="text" ng-model="model.widget.text" class="form-control"/>
+    <label for="rows">Rows</label>
+    <input id="rows" ng-model="model.widget.rows" class="form-control" type="number"/>
+    <label for="placeHolder">PlaceHolder</label>
+    <input id="placeHolder" ng-model="model.widget.placeholder" class="form-control"/>
+    <label for="formatted">Formatted</label>
+    <input id="formatted" ng-model="model.widget.formatted" type="checkbox"/>
+
+    <a ng-click="model.createWidget(model.widget)"
+       class="btn btn-block btn-success">Create</a>
+
+    <a ng-click="model.deleteWidget(model.widgetId)"
+       class="btn btn-block btn-danger">Delete</a>
+
+</div>
+
+<div ng-include="'views/common/footer.view.client.html'"></div>
+

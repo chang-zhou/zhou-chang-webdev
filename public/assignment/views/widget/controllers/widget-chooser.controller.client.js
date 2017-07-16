@@ -9,7 +9,9 @@
         var widgetTypes = [
             "HEADING",
             "IMAGE",
-            "YOUTUBE"
+            "YOUTUBE",
+            "HTML",
+            "INPUT"
         ];
 
         model.userId = $routeParams['userId'];
