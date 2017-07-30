@@ -18,6 +18,28 @@ app.get   ('/api/assignment/loggedin', loggedin);
 app.post  ('/api/assignment/logout', logout);
 app.post  ('/api/assignment/register', register);
 
+var FacebookStrategy = require('passport-facebook').Strategy;
+var facebookConfig = {
+    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+};
+passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+function facebookStrategy(token, refreshToken, profile, done) {
+    userModel
+        .findUserByFacebookId(profile.id)
+}
+
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/#/profile',
+        failureRedirect: '/#/login'
+    })
+);
+
+
 function login(req, res) {
     res.json(req.user);
 }
