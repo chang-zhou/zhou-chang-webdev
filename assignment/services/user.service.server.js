@@ -2,6 +2,8 @@ var app = require('../../express');
 var userModel = require('../model/user/user.model.server');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require("bcrypt-nodejs");
+
 passport.use(new LocalStrategy(localStrategy));
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -87,6 +89,8 @@ function logout(req, res) {
 
 function register(req, res) {
     var userObj = req.body;
+    userObj.password = bcrypt.hashSync(userObj.password);
+
     userModel
         .createUser(userObj)
         .then(function (user) {
@@ -163,16 +167,18 @@ function findUserByUsername(req, res) {
 
 function localStrategy(username, password, done) {
     userModel
-        .findUserByCredentials(username, password)
-        .then(function (user) {
-            if(user) {
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        }, function (error) {
-            done(error, false);
-        });
+        .findUserByUsername(username)
+        .then(
+            function(user) {
+                // if the user exists, compare passwords with bcrypt.compareSync
+                if(user && bcrypt.compareSync(password, user.password)) {
+                    return done(null, user);
+                } else {
+                    return done(null, false);
+                }
+            }, function (error) {
+                done(error, false);
+            });
 }
 
 function serializeUser(user, done) {
