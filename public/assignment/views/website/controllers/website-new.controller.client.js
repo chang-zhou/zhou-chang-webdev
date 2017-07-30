@@ -27,6 +27,11 @@
         }
 
         function createWebsite(website) {
+            if(website.name === null || website.name === '' || typeof website.name === 'undefined') {
+                model.error = 'website name is required';
+                return;
+            }
+
             websiteService
                 .createWebsite(model.userId, website)
                 .then(renderWebsite)

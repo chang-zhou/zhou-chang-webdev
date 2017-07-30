@@ -25,6 +25,11 @@
         }
 
         function createWidget(widget) {
+            if(widget.name === null || widget.name === '' || typeof widget.name === 'undefined') {
+                model.error = 'name is required';
+                return;
+            }
+
             widgetService.createWidget(model.pageId, widget, model.widgetType)
                 .then(function (status) {
                     $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget')

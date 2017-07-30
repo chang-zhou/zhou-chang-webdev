@@ -26,6 +26,7 @@
                 .then(
                     function () {
                         model.error = "sorry, that username is taken";
+                        return;
                     },
                     function () {
                         var newUser = {

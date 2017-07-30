@@ -28,6 +28,11 @@
         }
 
         function createPage(page) {
+            if(page.name === null || page.name === '' || typeof page.name === 'undefined') {
+                model.error = 'page name is required';
+                return;
+            }
+
             pageService
                 .createPage(model.websiteId, page)
                 .then(renderPage)

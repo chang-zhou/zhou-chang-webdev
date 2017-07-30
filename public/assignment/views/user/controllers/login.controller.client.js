@@ -10,6 +10,12 @@
         model.login = login;
 
         function login(username, password) {
+            if(username === null || username === '' || typeof username === 'undefined' ||
+                password === null || password === '' || typeof password === 'undefined') {
+                model.error = 'username and password are required';
+                return;
+            }
+
             userService
                 .login(username, password)
                 .then(function (found) {
