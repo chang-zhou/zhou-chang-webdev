@@ -96,7 +96,12 @@
                       ng-model="model.page.description"
                       class="form-control"></textarea>
 
-            <a ng-click="model.deletePage(model.pageId)"
+            <a ng-click="model.updatePage()"
+               class="btn btn-block btn-primary">
+                Update
+            </a>
+
+            <a ng-click="model.deletePage()"
                class="btn btn-block btn-danger">
                 Delete
             </a>

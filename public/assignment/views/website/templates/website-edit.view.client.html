@@ -95,7 +95,12 @@
                       ng-model="model.website.description"
                       class="form-control"></textarea>
 
-            <a ng-click="model.deleteWebsite(model.websiteId)"
+            <a ng-click="model.updateWebsite()"
+               class="btn btn-block btn-primary">
+                Update
+            </a>
+
+            <a ng-click="model.deleteWebsite()"
                class="btn btn-block btn-danger">
                 Delete
             </a>

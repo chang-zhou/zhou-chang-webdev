@@ -12,6 +12,7 @@
         model.websites = websites;
         model.deleteUser = deleteUser;
         model.logout = logout;
+        model.updateUser = updateUser;
 
         function init() {
             renderUser(currentUser);
@@ -32,6 +33,14 @@
                 .then(function (status) {
                     $location.url("/login");
                 })
+        }
+
+        function updateUser() {
+            userService
+                .updateUser(model.user)
+                .then(function (status) {
+                    $location.url("/profile");
+                });
         }
 
         function logout() {

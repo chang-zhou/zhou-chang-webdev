@@ -13,6 +13,7 @@
         model.pageId = $routeParams['pageId'];
 
         model.deletePage = deletePage;
+        model.updatePage = updatePage;
 
         function init() {
             pageService
@@ -36,7 +37,20 @@
             pageService
                 .deletePage(model.websiteId, pageId)
                 .then(function (status) {
-                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page')
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
+                });
+        }
+
+        function updatePage() {
+            var page = model.page;
+            if(page.name === null || page.name === '' || typeof page.name === 'undefined') {
+                model.error = 'page name is required';
+                return;
+            }
+            pageService
+                .updatePage(model.pageId, page)
+                .then(function (status) {
+                    $location.url('/user/'+model.userId+'/website/'+model.websiteId+'/page');
                 });
         }
     }
