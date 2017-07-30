@@ -26,7 +26,6 @@
                 .then(
                     function () {
                         model.error = "sorry, that username is taken";
-                        return;
                     },
                     function () {
                         var newUser = {
@@ -34,12 +33,12 @@
                             password: password
                         };
                         return userService
-                            .register(newUser);
+                            .register(newUser)
+                            .then(function (user) {
+                                $location.url('/profile');
+                            });
                     }
-                )
-                .then(function (user) {
-                    $location.url('/profile');
-                });
+                );
         }
     }
 })();

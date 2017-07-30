@@ -10,9 +10,13 @@
         model.login = login;
 
         function login(username, password) {
-            if(username === null || username === '' || typeof username === 'undefined' ||
-                password === null || password === '' || typeof password === 'undefined') {
-                model.error = 'username and password are required';
+            if(username === null || username === '' || typeof username === 'undefined') {
+                model.error = 'username is required';
+                return;
+            }
+
+            else if(password === null || password === '' || typeof password === 'undefined') {
+                model.error = 'password is required';
                 return;
             }
 
@@ -24,6 +28,9 @@
                     } else {
                         model.message = "sorry, " + username + " not found. please try again!";
                     }
+                },
+                function (error) {
+                    model.message = "sorry, " + username + " not found. please try again!";
                 });
         }
     }
