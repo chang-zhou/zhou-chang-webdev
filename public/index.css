@@ -1,0 +1,22 @@
+.list-group-item {
+    border: none;
+}
+
+.list-group {
+    border: none;
+}
+
+.jumbotron {
+    margin-top: 50px;
+    background-image: url("/assignment/img/background.png");
+    background-size: cover;
+    background-position: center bottom;
+    min-height: 300px;
+    color: white;
+}
+
+.photo {
+    width: 10%;
+    height: 10%;
+    margin-top: 50px;
+}
